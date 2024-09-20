@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Home</title>
+    <style>
+        .top-right {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Student List  <div class="top-right">
+       <a href="/courses">Go to Courses</a> 
+    </div></h1>
+    {% if students %}
+    <table id="all-students">
+        <tr>
+            <th>SNo</th>
+            <th>Roll Number</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Actions</th>
+        </tr>
+        {% for student in students %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td><a href="/student/{{ student.student_id }}">{{ student.roll_number }}</td>
+            <td>{{ student.first_name }}</td>
+            <td>{{ student.last_name }}</td>
+            <td>
+              <a href="/student/{{ student.student_id }}/update" type="button">Update</a>
+              <a href="/student/{{ student.student_id }}/delete" type="button">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p>No students found. Add students now!</p>
+    {% endif %}
+    <a href="{{ url_for('add_student') }}">+Add Student</a>
+</body>
+</html>
